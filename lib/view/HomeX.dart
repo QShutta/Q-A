@@ -19,7 +19,6 @@ class _HomeState extends State<Home> {
   bool isLoadingMore = false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     scrollController.addListener(_scrollListener);
   }
@@ -75,8 +74,12 @@ class _HomeState extends State<Home> {
                     itemCount: isLoadingMore
                         ? controller.questions.length + 1
                         : controller.questions.length,
+                    // the i variable represents the current index of the item being built.
                     itemBuilder: (builder, i) {
-                      //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                      //In general the purbose of this question is to add loading indicator .
+                      //if my current position is lesss than the total number of questions in the list
+                      //then he will display the "question" from the list of "questions".
+                      //otherwise he will display  a loading inicator to indicate that there is data featching from api.
                       if (i < controller.questions.length) {
                         final question = controller.questions[i];
                         return Column(
@@ -107,7 +110,7 @@ class _HomeState extends State<Home> {
                           ],
                         );
                       } else {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(
                             color: Colors.green,
                           ),
