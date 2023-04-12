@@ -20,8 +20,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(
-      //When we add scroll controller to the listView it gives us idea about the scroll behavior of the listView
-      controller: scrollController,
       children: [
         const Padding(
           padding: EdgeInsets.only(top: 30.0, bottom: 10),
@@ -38,10 +36,14 @@ class _HomeState extends State<Home> {
             return Padding(
                 padding: const EdgeInsets.only(left: 12.0, right: 12.0),
                 child: ListView.builder(
-                    controller: scrollController,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: controller.questions.length,
+                    //We want to show the loading so to add space for the loading indicator(in the listview)
+                    //we will add the number of the the +1 will represent the loadding indicator.
+                    itemCount: isLoadingMore
+                        ? controller.questions.length + 1
+                        : controller.questions.length,
+                    // the i variable represents the current index of the item being built.
                     itemBuilder: (builder, i) {
                       //In general the purbose of this question is to add loading indicator .
                       //if my current position is lesss than the total number of questions in the list
