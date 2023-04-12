@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import 'package:statck_exchange_q_a/view/Details.dart';
 
@@ -14,6 +15,35 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final HomeController controller = Get.put(HomeController());
+  var scrollController = ScrollController();
+  bool isLoadingMore = false;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(_scrollLithenr);
+  }
+
+  void _scrollLithenr() async {
+    //If the position of the user in the end of the list,in that case he should load more data from the api.
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      print("...................................");
+      //In case of that the user arrive to the end of the page we have to load data from another page from the api
+      controller.page = controller.page + 1;
+      //This var to indicate that ther is data come from the api
+      setState(() {
+        isLoadingMore = true;
+      });
+      await controller.getData();
+      //after the data come from the api succfuly:
+      setState(() {
+        isLoadingMore = false;
+      });
+    } else {
+      print("no scroll");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +65,10 @@ class _HomeState extends State<Home> {
             return Padding(
                 padding: const EdgeInsets.only(left: 12.0, right: 12.0),
                 child: ListView.builder(
+                    controller: scrollController,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: controller.questions.length,
+                    itemCount:isLoadingMore?controller.questions.length+1: controller.questions.length,
                     itemBuilder: (builder, i) {
                       final question = controller.questions[i];
                       return Column(
