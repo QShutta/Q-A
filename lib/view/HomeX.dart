@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final HomeController controller = Get.put(HomeController());
   final scrollController = ScrollController();
-  //We are going to create indicator that will tell the user some data loaded at the moment
+  //We are going to create indicator that will tell the user that some data loaded at this moment
   bool isLoadingMore = false;
   @override
   void initState() {
