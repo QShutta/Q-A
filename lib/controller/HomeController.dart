@@ -40,7 +40,6 @@ class HomeController extends GetxController {
     //If the position of the user in the end of the list,in that case he should load more data from the api.
     if (scrollController.value.position.pixels ==
         scrollController.value.position.maxScrollExtent) {
-     
       //In case of that the user arrive to the end of the page we have to load data from another page from the api
       page = page + 1;
 
