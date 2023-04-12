@@ -8,6 +8,7 @@ import 'package:statck_exchange_q_a/view/HomeX.dart';
 import 'package:statck_exchange_q_a/view/Test.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
