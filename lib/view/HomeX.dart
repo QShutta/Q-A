@@ -15,40 +15,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final HomeController controller = Get.put(HomeController());
-  var scrollController = ScrollController();
-  bool isLoadingMore = false;
-
-  @override
-  void initState() {
-    super.initState();
-    scrollController.addListener(_scrollLithenr);
-  }
-
-  void _scrollLithenr() async {
-    //If the position of the user in the end of the list,in that case he should load more data from the api.
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent) {
-      print("...................................");
-      //In case of that the user arrive to the end of the page we have to load data from another page from the api
-      controller.page = controller.page + 1;
-      //This var to indicate that ther is data come from the api
-      setState(() {
-        isLoadingMore = true;
-      });
-      await controller.getData();
-      //after the data come from the api succfuly:
-      setState(() {
-        isLoadingMore = false;
-      });
-    } else {
-      print("no scroll");
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: ListView(
+      //When we add scroll controller to the listView it gives us idea about the scroll behavior of the listView
+      controller: scrollController,
       children: [
         const Padding(
           padding: EdgeInsets.only(top: 30.0, bottom: 10),
@@ -68,35 +41,48 @@ class _HomeState extends State<Home> {
                     controller: scrollController,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount:isLoadingMore?controller.questions.length+1: controller.questions.length,
+                    itemCount: controller.questions.length,
                     itemBuilder: (builder, i) {
-                      final question = controller.questions[i];
-                      return Column(
-                        children: [
-                          InkWell(
-                            onTap: () async {
-                              await Get.to(() => Details(), arguments: {
-                                "id": "${question['question_id']}"
-                              });
-                            },
-                            child: ListTile(
-                              trailing: const Icon(
-                                size: 20,
-                                Icons.arrow_forward_ios,
-                                color: Color(
-                                  0xFF5EC590,
+                      //In general the purbose of this question is to add loading indicator .
+                      //if my current position is lesss than the total number of questions in the list
+                      //then he will display the "question" from the list of "questions".
+                      //otherwise he will display  a loading inicator to indicate that there is data featching from api.
+                      if (i < controller.questions.length) {
+                        final question = controller.questions[i];
+                        return Column(
+                          children: [
+                            InkWell(
+                              onTap: () async {
+                                await Get.to(() => Details(), arguments: {
+                                  "id": "${question['question_id']}"
+                                });
+                              },
+                              child: ListTile(
+                                trailing: const Icon(
+                                  size: 20,
+                                  Icons.arrow_forward_ios,
+                                  color: Color(
+                                    0xFF5EC590,
+                                  ),
                                 ),
+                                title: Text("${question['title']}",
+                                    maxLines: 1,
+                                    style: TextStyle(color: Colors.green[400])),
                               ),
-                              title: Text("${question['title']}",
-                                  style: TextStyle(color: Colors.green[400])),
                             ),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 13.0, right: 8.0),
+                              child: Divider(),
+                            )
+                          ],
+                        );
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.green,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 13.0, right: 8.0),
-                            child: Divider(),
-                          )
-                        ],
-                      );
+                        );
+                      }
                     }));
           },
         )
