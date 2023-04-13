@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:statck_exchange_q_a/controller/DetailsController.dart';
-
-import 'package:statck_exchange_q_a/view/HomeX.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../model/question_model.dart';
 
@@ -18,19 +13,8 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-  List<String> tags = Get.arguments['tags'];
-  // final myq = Get.arguments;
-
-  var questionId;
-  // late Question myquestion;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    questionId = Get.arguments['id'];
-    // myquestion = Get.arguments as Question;
-  }
-
+  //We create an instane of the data that will passing from the home screen.and this instance is from Quesion model class type.
+  final Question myquestion = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,10 +31,7 @@ class _DetailsState extends State<Details> {
             },
           ),
         ),
-        body:
-
-            // List tags = question['tags'];
-            ListView(
+        body: ListView(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 10.0, bottom: 10),
@@ -84,9 +65,7 @@ class _DetailsState extends State<Details> {
                   width: double.infinity,
                   alignment: Alignment.topLeft,
                   child: Text(
-                    // "${question['title']}",
-                    // " ${myq.title}",
-                    "${Get.arguments['title']}",
+                    " ${myquestion.title}",
                     style: TextStyle(
                       fontSize: 14.0,
                     ),
@@ -105,8 +84,7 @@ class _DetailsState extends State<Details> {
                       ),
                     ),
                   ),
-                  // question['is_answered']
-                  Get.arguments['isAnswered']
+                  myquestion.isAnswered!
                       ? Icon(
                           Icons.check,
                           color: Colors.green,
@@ -131,10 +109,7 @@ class _DetailsState extends State<Details> {
                       ),
                     ),
                   ),
-                  Text(
-
-                      // "${question['view_count']}",
-                      "${Get.arguments['viewCount']}")
+                  Text("${myquestion.viewCount}")
                 ],
               ),
             ),
@@ -143,7 +118,7 @@ class _DetailsState extends State<Details> {
                   const EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
               child: Row(
                 children: [
-                  Text(
+                  const Text(
                     "Answers:",
                     style: TextStyle(
                       color: Color(
@@ -151,9 +126,7 @@ class _DetailsState extends State<Details> {
                       ),
                     ),
                   ),
-                  Text("${Get.arguments['answerCount']}"
-                      // "${question['answer_count']}"
-                      )
+                  Text("${myquestion.answerCount}")
                 ],
               ),
             ),
@@ -164,7 +137,7 @@ class _DetailsState extends State<Details> {
               ),
               child: Row(
                 children: [
-                  Text(
+                  const Text(
                     "View the qution on Stack Exchange:",
                     style: TextStyle(
                       color: Color(
@@ -175,13 +148,10 @@ class _DetailsState extends State<Details> {
                   IconButton(
                       onPressed: () async {
                         if (!await launchUrl(
-                            mode: LaunchMode.externalApplication, Uri.parse(
-                                // question['link']
-                                Get.arguments['link']))) {
-                          throw Exception('Colud not launch ${Uri.parse(
-
-                              // question['link']
-                              Get.arguments['link'])}');
+                            mode: LaunchMode.externalApplication,
+                            Uri.parse(myquestion.link!))) {
+                          throw Exception(
+                              'Colud not launch ${Uri.parse(myquestion.link!)}');
                         }
                         ;
                       },
@@ -195,7 +165,7 @@ class _DetailsState extends State<Details> {
               child: Container(
                   width: double.infinity,
                   alignment: Alignment.topLeft,
-                  child: Text(
+                  child: const Text(
                     "Question Tags:",
                     style: TextStyle(
                       color: Color(
@@ -211,11 +181,11 @@ class _DetailsState extends State<Details> {
                   const EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
               child: Wrap(
                 spacing: 8.0,
-                children: tags
+                children: myquestion.tags!
                     .map((tag) => Chip(
                             label: Text(
                           tag,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color(
                               0xFF5EC590,
                             ),
@@ -230,7 +200,7 @@ class _DetailsState extends State<Details> {
               child: Container(
                   width: double.infinity,
                   alignment: Alignment.topLeft,
-                  child: Text(
+                  child: const Text(
                     "Question Owner:",
                     style: TextStyle(
                       color: Color(
@@ -248,25 +218,14 @@ class _DetailsState extends State<Details> {
                 child: ListTile(
                   leading: CircleAvatar(
                       child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child:
-                              // question.owner!.profileImage != null
-
-                              //  question['owner']['profile_image']
-                              //  != null
-
-                              // ?
-
-                              Image.network(
-                                  // "${question['owner']['profile_image']}"
-                                  "${Get.arguments['owner'].profileImage}")
-                          // : Icon(Icons.person),
-                          )),
+                    borderRadius: BorderRadius.circular(50),
+                    child: myquestion.owner!.profileImage != null
+                        ? Image.network(myquestion.owner!.profileImage!)
+                        : const Icon(Icons.person),
+                  )),
                   title: Text(
-                    // "${question['owner']['display_name']}",
-                    "${Get.arguments['owner'].displayName}",
-
-                    style: TextStyle(
+                    "${myquestion.owner!.displayName}",
+                    style: const TextStyle(
                       color: Color(
                         0xFF5EC590,
                       ),
@@ -275,18 +234,13 @@ class _DetailsState extends State<Details> {
                   subtitle: InkWell(
                       onTap: () async {
                         if (!await launchUrl(
-                            mode: LaunchMode.externalApplication, Uri.parse(
-                                // question['owner']['link']
-                                Get.arguments['owner'].link))) {
-                          throw Exception('Colud not launch ${Uri.parse(
-                              // question['link']
-                              Get.arguments['link'])}');
+                            mode: LaunchMode.externalApplication,
+                            Uri.parse(myquestion.owner!.link!))) {
+                          throw Exception(
+                              'Colud not launch ${Uri.parse(myquestion.link!)}');
                         }
-                        ;
                       },
-                      child: Text(
-                          // "${question['owner']['link']}"
-                          Get.arguments['owner'].link)),
+                      child: Text(myquestion.owner!.link!)),
                 ),
               ),
             )
