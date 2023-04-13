@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-
 import 'package:statck_exchange_q_a/view/Details.dart';
-
 import '../controller/HomeController.dart';
 
 class Home extends StatefulWidget {
@@ -30,13 +28,16 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
+        //we but it inside obx ,because we usign the streaming .
         Obx(() {
           return Padding(
               padding: const EdgeInsets.only(left: 12.0, right: 12.0),
               child: ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
+               
                   //This line to add loading indicator to the end of the list in case if it's loading more data from api.
+                //in case of it's loading more daata ,will add 1 element  for the loading indicator
                   itemCount: controller.isLoadingMore.value
                       ? controller.questions.length + 1
                       : controller.questions.length,
@@ -46,6 +47,7 @@ class _HomeState extends State<Home> {
                     //in this case will just dispaly the data from the list ,otherwise will do
                     //an api call again.and show loading indicator
                     if (i < controller.questions.length) {
+                      //will get the data from the questions list.
                       final question = controller.questions[i];
                       return Column(
                         children: [

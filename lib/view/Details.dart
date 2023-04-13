@@ -20,7 +20,7 @@ class _DetailsState extends State<Details> {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Color(
                 0xFF5EC590,
@@ -33,8 +33,8 @@ class _DetailsState extends State<Details> {
         ),
         body: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 10),
+            const Padding(
+              padding: EdgeInsets.only(top: 10.0, bottom: 10),
               child: Center(
                 child: Text(
                   "FAQ",
@@ -47,7 +47,7 @@ class _DetailsState extends State<Details> {
               child: Container(
                   width: double.infinity,
                   alignment: Alignment.topLeft,
-                  child: Text(
+                  child: const Text(
                     "Question:",
                     style: TextStyle(
                       color: Color(
@@ -66,7 +66,7 @@ class _DetailsState extends State<Details> {
                   alignment: Alignment.topLeft,
                   child: Text(
                     " ${myquestion.title}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14.0,
                     ),
                   )),
@@ -76,7 +76,7 @@ class _DetailsState extends State<Details> {
                   const EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
               child: Row(
                 children: [
-                  Text(
+                  const Text(
                     "Answred:",
                     style: TextStyle(
                       color: Color(
@@ -85,11 +85,11 @@ class _DetailsState extends State<Details> {
                     ),
                   ),
                   myquestion.isAnswered!
-                      ? Icon(
+                      ? const Icon(
                           Icons.check,
                           color: Colors.green,
                         )
-                      : Icon(
+                      : const Icon(
                           Icons.close,
                           color: Colors.red,
                         ),
@@ -101,7 +101,7 @@ class _DetailsState extends State<Details> {
                   const EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
               child: Row(
                 children: [
-                  Text(
+                  const Text(
                     "Views:",
                     style: TextStyle(
                       color: Color(
@@ -129,6 +129,7 @@ class _DetailsState extends State<Details> {
                   Text("${myquestion.answerCount}")
                 ],
               ),
+              
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -153,9 +154,8 @@ class _DetailsState extends State<Details> {
                           throw Exception(
                               'Colud not launch ${Uri.parse(myquestion.link!)}');
                         }
-                        ;
                       },
-                      icon: Icon(Icons.link))
+                      icon: const Icon(Icons.link))
                 ],
               ),
             ),
