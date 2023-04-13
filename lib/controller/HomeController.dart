@@ -7,7 +7,7 @@ import 'package:statck_exchange_q_a/model/question_model.dart';
 class HomeController extends GetxController {
   //We make it from "obs" to be reactive so any change will hapen in it will be reflect in other places
 
-  // List<Question> questions = [].obs as List<Question>;
+  RxList<Question> questions = <Question>[].obs;
 
   //This var is to determine which page is going to bring the data from it in the api.and it's inital val is 1.
   var page = 1.obs;
@@ -16,22 +16,19 @@ class HomeController extends GetxController {
   var isLoadingMore = false.obs;
 
 //This method to get the data from the api.
-  Future<List<Question>> getData() async {
+  Future<void> getData() async {
     var uri =
         "https://api.stackexchange.com//2.3/questions?page=${page.value}&order=desc&sort=activity&site=stackoverflow&key=JEGdhQn2ExfkSGS*XTZHNQ((";
     var res = await http.get(Uri.parse(uri));
     if (res.statusCode == 200) {
       List resBody = jsonDecode(res.body)["items"];
-
+      //The line of code you provided converts a List of JSON objects returned from an API into a List of Question objects
+//, the overall effect of this line of code is to convert each JSON object in the resBody  to a Question object,
+// and then store these Question objects in the myqustions list.
       List<Question> myqustions =
           resBody.map((e) => Question.fromJson(e)).toList();
-
-      return myqustions;
-      // questions = questions + myqustions;
-      //The list of questions ,is equeal to the old list of question +new list of quesion that will come from the api.
-      // questions = questions + resBody['items'];
-      // questions.map((e) => Question.fromJson(e)).toList();
-      // return questions;
+//addAll method of the RxList will add the new values to the end of the existing values in the list
+      questions.addAll(myqustions);
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load questions:${res.statusCode}');
