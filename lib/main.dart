@@ -2,19 +2,28 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:statck_exchange_q_a/view/Details.dart';
+import 'package:statck_exchange_q_a/controller/SettingServices.dart';
 import 'package:statck_exchange_q_a/view/HomeX.dart';
-import 'package:statck_exchange_q_a/view/Test.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   HttpOverrides.global = MyHttpOverrides();
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Color(0xFF5EC590),
   ));
+  //We use this to access to the sharedprefrences var.by this way it will be accessed any where in my app.
+  await initalServices();
   runApp(const MyApp());
+}
+
+//We use this to access to the sharedprefrences var.by this way it will be accessed any where in my app.
+Future initalServices() async {
+  await Get.putAsync(() => SettingServices().init());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +31,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(theme: ThemeData(useMaterial3: true), home: Home());
+    return GetMaterialApp(
+        theme: ThemeData(useMaterial3: true), home: const Home());
   }
 }
 
