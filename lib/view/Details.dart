@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../model/question_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class Details extends StatefulWidget {
   const Details({
@@ -63,7 +64,7 @@ class _DetailsState extends State<Details> {
                   const EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
               child: Container(
                   width: double.infinity,
-                  alignment: Alignment.topLeft,
+                  // alignment: Alignment.topLeft,
                   child: Text(
                     " ${myquestion.title}",
                     style: const TextStyle(
@@ -97,19 +98,18 @@ class _DetailsState extends State<Details> {
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
+              padding: EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
               child: Row(
                 children: [
-                  const Text(
-                    "Views:",
-                    style: TextStyle(
+                  Text(
+                    "Views: ${myquestion.viewCount}",
+                    style: const TextStyle(
                       color: Color(
                         0xFF5EC590,
                       ),
                     ),
                   ),
-                  Text("${myquestion.viewCount}")
+                  // Text("${myquestion.viewCount}")
                 ],
               ),
             ),
@@ -118,18 +118,17 @@ class _DetailsState extends State<Details> {
                   const EdgeInsets.only(left: 12.0, right: 12.0, top: 10.0),
               child: Row(
                 children: [
-                  const Text(
-                    "Answers:",
-                    style: TextStyle(
+                  Text(
+                    "Answers:${myquestion.answerCount}",
+                    style: const TextStyle(
                       color: Color(
                         0xFF5EC590,
                       ),
                     ),
                   ),
-                  Text("${myquestion.answerCount}")
+                  // Text("${myquestion.answerCount}")
                 ],
               ),
-              
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -220,7 +219,15 @@ class _DetailsState extends State<Details> {
                       child: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child: myquestion.owner!.profileImage != null
-                        ? Image.network(myquestion.owner!.profileImage!)
+                        ? CachedNetworkImage(
+                            imageUrl: myquestion.owner!.profileImage!,
+                            placeholder: (context, url) {
+                              return const CircularProgressIndicator();
+                            },
+                            errorWidget: (context, url, error) {
+                              return const Icon(Icons.person);
+                            },
+                          )
                         : const Icon(Icons.person),
                   )),
                   title: Text(
