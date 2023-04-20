@@ -17,10 +17,13 @@ To use this application, simply download the source code from this Github Reposi
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Images Triangle</title>
+  <title>Images Row</title>
   <style>
     .container {
-      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
       width: 100%;
       max-width: 800px;
       margin: 0 auto;
@@ -30,31 +33,15 @@ To use this application, simply download the source code from this Github Reposi
     img {
       max-width: 200px;
       height: auto;
-      margin: 0 20px;
-      display: inline-block;
-      position: absolute;
-      transform: translateY(-50%);
-    }
-    .image1 {
-      top: 50%;
-      left: 0;
-    }
-    .image2 {
-      top: 25%;
-      right: 0;
-    }
-    .image3 {
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
+      margin: 10px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <img src="https://user-images.githubusercontent.com/104342138/233266686-ac1e2491-398e-40d1-95c9-1ddc9e21e33f.png" alt="Splash Screen" class="image1">
-    <img src="https://user-images.githubusercontent.com/104342138/233266642-140fdcf0-dd8f-4738-bdcd-ecbe553c0109.png" alt="Home Page" class="image2">
-    <img src="https://user-images.githubusercontent.com/104342138/233266599-337ac986-069c-48c8-b711-e9cb8f476206.png" alt="Details Page" class="image3">
+    <img src="https://user-images.githubusercontent.com/104342138/233266686-ac1e2491-398e-40d1-95c9-1ddc9e21e33f.png" alt="Splash Screen">
+    <img src="https://user-images.githubusercontent.com/104342138/233266642-140fdcf0-dd8f-4738-bdcd-ecbe553c0109.png" alt="Home Page">
+    <img src="https://user-images.githubusercontent.com/104342138/233266599-337ac986-069c-48c8-b711-e9cb8f476206.png" alt="Details Page">
   </div>
 </body>
 </html>
