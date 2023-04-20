@@ -1,16 +1,19 @@
-# statck_exchange_q_a
+#Stack Overflow Questions Viewer
+This is a Flutter application that allows users to browse and view questions from the Stack Overflow API. The application has two screens: the first screen shows a list of questions, and the second screen displays the details of a selected question.
 
-A new Flutter project.
+##API Used
+This application consumes the Stack Exchange API, specifically the /questions endpoint.
 
-## Getting Started
+##Features
+-Clean and elegant UI design
+-Clean code architecture using Getx package for state management.
+-Pagination and lazy loader have been implemented to improve user experience.
+-Offline mode available, where the application shows the already loaded questions.
+##Usage
+To use this application, simply download the source code from this Github Repository, open it in Flutter, and run it on an emulator or physical device.
 
-This project is a starting point for a Flutter application.
+##Screenshots
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Authors
+AbuAlqasim Mohmad
