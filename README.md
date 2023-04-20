@@ -5,10 +5,12 @@ This is a Flutter application that allows users to browse and view questions fro
 This application consumes the Stack Exchange API, specifically the /questions endpoint.
 
 ## Features
-- Clean and elegant UI design
-- Clean code architecture using Getx package for state management.
-- Pagination and lazy loader have been implemented to improve user experience.
-- Offline mode available, where the application shows the already loaded questions.
+- Clean and elegant UI design.
+- Follows the Model-View-Controller (MVC) architecture pattern for better separation of concerns.
+- Utilizes the GetX package for efficient and hassle-free state management.
+- Implements pagination and lazy loading to enhance the user experience by reducing load times and improving performance.
+I- ncludes an offline mode that allows users to access previously loaded questions even without an internet connection.
+
 ## Usage
 To use this application, simply download the source code from this Github Repository, open it in Flutter, and run it on an emulator or physical device.
 
