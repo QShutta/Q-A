@@ -15,5 +15,5 @@ To use this application, simply download the source code from this Github Reposi
 ## Screenshots
 
 
-## Authors
+## Author
 AbuAlqasim Mohmad
