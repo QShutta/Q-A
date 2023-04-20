@@ -19,33 +19,33 @@ To use this application, simply download the source code from this Github Reposi
   <meta charset="UTF-8">
   <title>Images Row</title>
   <style>
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
+    table {
       width: 100%;
       max-width: 800px;
       margin: 0 auto;
       margin-top: 50px;
+      border-collapse: collapse;
       text-align: center;
+    }
+    td {
+      padding: 10px;
     }
     img {
       max-width: 200px;
       height: auto;
-      margin: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="https://user-images.githubusercontent.com/104342138/233266686-ac1e2491-398e-40d1-95c9-1ddc9e21e33f.png" alt="Splash Screen">
-    <img src="https://user-images.githubusercontent.com/104342138/233266642-140fdcf0-dd8f-4738-bdcd-ecbe553c0109.png" alt="Home Page">
-    <img src="https://user-images.githubusercontent.com/104342138/233266599-337ac986-069c-48c8-b711-e9cb8f476206.png" alt="Details Page">
-  </div>
+  <table>
+    <tr>
+      <td><img src="https://user-images.githubusercontent.com/104342138/233266686-ac1e2491-398e-40d1-95c9-1ddc9e21e33f.png" alt="Splash Screen"></td>
+      <td><img src="https://user-images.githubusercontent.com/104342138/233266642-140fdcf0-dd8f-4738-bdcd-ecbe553c0109.png" alt="Home Page"></td>
+      <td><img src="https://user-images.githubusercontent.com/104342138/233266599-337ac986-069c-48c8-b711-e9cb8f476206.png" alt="Details Page"></td>
+    </tr>
+  </table>
 </body>
 </html>
-
 
 
 ## Author
