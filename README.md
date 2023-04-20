@@ -9,7 +9,7 @@ This application consumes the Stack Exchange API, specifically the /questions en
 - Follows the Model-View-Controller (MVC) architecture pattern for better separation of concerns.
 - Utilizes the GetX package for efficient and hassle-free state management.
 - Implements pagination and lazy loading to enhance the user experience by reducing load times and improving performance.
-I- ncludes an offline mode that allows users to access previously loaded questions even without an internet connection.
+- Includes an offline mode that allows users to access previously loaded questions even without an internet connection.
 
 ## Usage
 To use this application, simply download the source code from this Github Repository, open it in Flutter, and run it on an emulator or physical device.
